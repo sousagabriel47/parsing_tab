@@ -13,7 +13,7 @@ def padrao_tab(line):
 
 
 print("Inicio Parsing")
-with open('.\data\input.txt', 'r', encoding="utf-8") as f:
+with open('.\data\in2.txt', 'r', encoding="utf-8") as f:
     data = f.read()
 
 
@@ -26,14 +26,14 @@ dict_org = {}
 for idx in range(total):
     tab = '.'.join(padrao_tab(data[idx]))
     if tab not in dict_org.keys():
-        print(f'{tab} identificada')
+        #print(f'{tab} identificada')
         dict_org[tab] = []
-    print(f'Linha{idx} com padrao {tab}')
+    #print(f'Linha{idx} com padrao {tab}')
     dict_org[tab].append(idx)
 
 print(f'{len(dict_org.keys())} padroes de tabulacao identificados')
 
-with open('.\data\out.txt', 'w') as f:
+with open('.\data\out2.txt', 'w') as f:
     for padrao,linhas in dict_org.items():
         for line in linhas:
             print(data[line], file=f)
