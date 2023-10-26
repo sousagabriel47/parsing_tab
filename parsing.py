@@ -19,7 +19,7 @@ with open('.\data\input.txt', 'r', encoding="utf-8") as f:
 
 data = data.splitlines()[1:]
 
-total = 100 #len(data)
+total = len(data)
 
 print(f'{total} linhas lidas')
 dict_org = {}
