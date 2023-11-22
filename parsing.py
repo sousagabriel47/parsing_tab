@@ -50,11 +50,13 @@ for idx in range(total):
     dict_org[tab].append(idx)
 
 print(f'{len(dict_org.keys())} padroes de tabulacao identificados')
+tLinhas = 0
 
 for padrao,linhas in dict_org.items():
     nome = gera_nome(padrao)
-    with open(f'.\data\out\{nome}.txt', 'w') as f:
+    with open(f'.\data\out\{padrao}.txt', 'a') as f:
         for line in linhas:
             print(data[line], file=f)
+            tLinhas += 1
 
-print('Fim')
+print(f'Fim: {tLinhas} separadas')
