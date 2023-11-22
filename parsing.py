@@ -9,11 +9,29 @@ def padrao_tab(line):
         posicoes na string da tabulação."""
     #tab = [0, 9, 12, 15, 18, 21, 22, 23, 24, 27, 28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 42, 45, 48, 51, 52, 53]
     tab = [str(id) for id, chr in enumerate(line) if chr == ' ']
-    return tab
+    tab_str = ['X'] * len(line)
+    for ch in tab:
+        tab_str[int(ch)] = ' '
+    tab_str = ''.join(tab_str)
+    return tab_str
 
+def gera_nome(tab_str):
+    """Gera o nome do arquivo."""
+    count = 0
+    seq = []
+    for ch in range(len(tab_str)-1):
+        if tab_str[ch] == ' ' and tab_str[ch+1] == ' ':
+            if count:
+                seq.append(count)
+                count = 0
+        elif tab_str[ch] == ' ':
+            count += 1
+    if count:
+        seq.append(count)
+    return '_'.join([str(s) for s in seq])
 
 print("Inicio Parsing")
-with open('.\data\in2.txt', 'r', encoding="utf-8") as f:
+with open('.\data\in.txt', 'r', encoding="utf-8") as f:
     data = f.read()
 
 
@@ -24,7 +42,7 @@ total = len(data)
 print(f'{total} linhas lidas')
 dict_org = {}
 for idx in range(total):
-    tab = '.'.join(padrao_tab(data[idx]))
+    tab = padrao_tab(data[idx])
     if tab not in dict_org.keys():
         #print(f'{tab} identificada')
         dict_org[tab] = []
@@ -33,8 +51,9 @@ for idx in range(total):
 
 print(f'{len(dict_org.keys())} padroes de tabulacao identificados')
 
-with open('.\data\out2.txt', 'w') as f:
-    for padrao,linhas in dict_org.items():
+for padrao,linhas in dict_org.items():
+    nome = gera_nome(padrao)
+    with open(f'.\data\out\{nome}.txt', 'w') as f:
         for line in linhas:
             print(data[line], file=f)
 
