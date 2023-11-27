@@ -9,10 +9,10 @@ def padrao_tab(line):
         posicoes na string da tabulação."""
     #tab = [0, 9, 12, 15, 18, 21, 22, 23, 24, 27, 28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 42, 45, 48, 51, 52, 53]
     tab = [str(id) for id, chr in enumerate(line) if chr == ' ']
-    tab_str = ['X'] * len(line)
-    for ch in tab:
-        tab_str[int(ch)] = ' '
-    tab_str = ''.join(tab_str)
+    # tab_str = ['X'] * len(line)
+    # for ch in tab:
+    #     tab_str[int(ch)] = ' '
+    tab_str = '.'.join(tab)
     return tab_str
 
 def gera_nome(tab_str):
@@ -51,12 +51,19 @@ for idx in range(total):
 
 print(f'{len(dict_org.keys())} padroes de tabulacao identificados')
 tLinhas = 0
-
+nomes = {}
 for padrao,linhas in dict_org.items():
-    nome = gera_nome(padrao)
-    with open(f'.\data\out\{padrao}.txt', 'a') as f:
+    nome = data[linhas[0]][1:]
+    #print(nome)
+
+    with open(f'.\data\out\{nome}.txt', 'w') as f:
         for line in linhas:
             print(data[line], file=f)
             tLinhas += 1
 
 print(f'Fim: {tLinhas} separadas')
+
+# for nome,padroes in nomes.items():
+#     with open(f'.\data\out_p\{len(padroes)}-{nome}.txt', 'a') as f:
+#         for line in padroes:
+#             print(line, file=f)
