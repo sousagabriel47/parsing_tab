@@ -1,5 +1,9 @@
 """Parsing Tab."""
 import os
+import sys
+
+mode = sys.argv
+
 
 def padrao_tab(line):
     """Retorna o padrao de tabulacao até o final da linha."""
@@ -30,6 +34,11 @@ def gera_nome(tab_str):
         seq.append(count)
     return '_'.join([str(s) for s in seq])
 
+if len(sys.argv) > 1:
+    mode = sys.argv[1]
+else:
+    mode = 'onefile'
+
 print("Inicio Parsing")
 with open('.\data\in.txt', 'r', encoding="utf-8") as f:
     data = f.read()
@@ -52,14 +61,22 @@ for idx in range(total):
 print(f'{len(dict_org.keys())} padroes de tabulacao identificados')
 tLinhas = 0
 nomes = {}
-for padrao,linhas in dict_org.items():
-    nome = data[linhas[0]][1:]
-    #print(nome)
 
-    with open(f'.\data\out\{nome}.txt', 'w') as f:
-        for line in linhas:
-            print(data[line], file=f)
-            tLinhas += 1
+if mode == 'onefile':
+    with open(f'.\data\out\\tabulacao.txt', 'w') as f:
+        for linhas in dict_org.values():
+            for line in linhas:
+                print(data[line], file=f)
+                tLinhas += 1
+elif mode == 'folder':
+    for padrao,linhas in dict_org.items():
+        nome = data[linhas[0]][1:]
+        #print(nome)
+
+        with open(f'.\data\out\{nome}.txt', 'w') as f:
+            for line in linhas:
+                print(data[line], file=f)
+                tLinhas += 1
 
 print(f'Fim: {tLinhas} separadas')
 
