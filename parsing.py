@@ -19,6 +19,14 @@ def padrao_tab(line):
     tab_str = '.'.join(tab)
     return tab_str
 
+def padrao_colunas(line):
+    """Retorna o padrao de tabulacao até o final da linha."""
+    # Retorna o numero de colunas
+    # s = 0/0/000- 01 02 03 04    06    12       18 19 20 21   
+    #    ['0/0/000-', '01', '02', '03', '04', '06', '12', '18', '19', '20', '21']
+    # len = 11 
+    return len(line.split())
+
 def gera_nome(tab_str):
     """Gera o nome do arquivo."""
     count = 0
@@ -51,7 +59,7 @@ total = len(data)
 print(f'{total} linhas lidas')
 dict_org = {}
 for idx in range(total):
-    tab = padrao_tab(data[idx])
+    tab = padrao_colunas(data[idx])
     if tab not in dict_org.keys():
         #print(f'{tab} identificada')
         dict_org[tab] = []
